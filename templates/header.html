@@ -1,0 +1,83 @@
+{% load static %}
+{% load user_tags %}
+<div class="header">
+    <div class="header-left">
+        {% if role == 'patient' %}
+        <div class="text-right">
+            <select class="typeofmed" data-style="btn btn-primary find-me" data-size="5">
+                <optgroup label="Type of Medication" data-max-options="2">
+                    <option>Maintanence Dose</option>
+                    <option>Rescue Dose</option>
+                </optgroup>
+            </select>
+        </div>
+        <div>
+            <button class="btn btn-primary rating">Rating {{ rating }}</button>
+            <!-- <button class="btn btn-primary rating">Rating &#128512</button> -->
+        </div>
+        {% endif %}
+    </div>
+    <div class="header-right">
+        {% if role == 'patient' %}
+        <div class="dashboard-setting user-notification">
+            <div class="dropdown">
+                <a class="dropdown-toggle no-arrow" href="javascript:;" data-toggle="right-sidebar">
+                    <i class="dw dw-settings2"></i>
+                </a>
+            </div>
+        </div>
+        {% endif %}
+        <div class="user-notification">
+            <div class="dropdown">
+                <a class="dropdown-toggle no-arrow" href="#" role="button" data-toggle="dropdown">
+                    <i class="icon-copy dw dw-notification"></i>
+                    {% if unread_notifications %}
+                        <span class="badge notification-active"></span>
+                    {% endif %}
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <div class="notification-list mx-h-350 customscroll">
+                        <ul>
+                            {% for i in notifications %}
+                                <li>
+                                    <a href="{% url 'user:view-notification' pk=i.id %}">
+                                        <img src="{{ i|get_notification_image }}" alt="">
+                                        <h3>{{ i|get_notification_title }}</h3>
+                                        <p>{{ i|get_notification_body }}</p>
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                        <a href="{% url 'user:mark-all-read' %}">Mark all read</a>
+                        <a href="{% url 'user:notifications' %}">View all notification</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="call">
+            <a href="tel:01234567890"><i class="icon-copy ion-ios-telephone-outline"></i></a>
+        </div>
+        <div class="reload">
+            <a href="" onclick="return locationreload();"><i class="icon-copy ion-ios-loop" aria-hidden="true"></i></a>
+        </div>
+        <div class="user-info-dropdown">
+            <div class="dropdown">
+                <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                    <span class="user-icon">
+                        <img src="{{ user|get_avatar_thumbnail_url }}" alt="">
+                    </span>
+                    <span class="user-name">{{ user.first_name }} {{ user.last_name }}</span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                    <a class="dropdown-item" href="{% url 'user:profile' %}"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="{% url 'user:profile' %}"><i class="dw dw-settings2"></i> Setting</a>
+                    <a class="dropdown-item" href="{% url 'user:help' %}"><i class="dw dw-help"></i> Help</a>
+                    {% if role == 'patient' %}
+                        <a class="dropdown-item" href="{% url 'inhaler:add-data' %}"><i class="dw dw-settings2"></i> Add data</a>
+                    {% endif %}
+                    <a class="dropdown-item" href="{% url 'user:logout' %}"><i class="dw dw-logout"></i> Log Out</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

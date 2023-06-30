@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box height-100-p pd-20">
+                <div class="right-sidebar-body">
+                    <div class="right-sidebar-body-content">
+                        <form id="allergies_form" role="form" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            {% for field in form %}
+                                <div class="form-group">
+                                    <label class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                                    <div class="col-sm-12">
+                                        <span class="text-danger small">{{ field.errors }}</span>
+                                        {{ field }}
+                                    </div>
+                                </div>
+                            {% endfor %}
+                            <input type="submit" class="btn btn-primary" id= "update_allergies" value="Save">
+                            <a href="javascript:history.go(-1)" class="btn btn-primary">Cancel</a>
+                        </form>
+                    </div>
+			    </div>
+		    </div>
+		</div>
+	</div>
+</div>
+<script>
+    document.getElementById("id_alarm_1_time").type = 'time'
+    document.getElementById("id_alarm_2_time").type = 'time'
+    document.getElementById("id_alarm_3_time").type = 'time'
+    document.getElementById("id_alarm_4_time").type = 'time'
+</script>
+{% endblock%}

@@ -1,0 +1,298 @@
+{% load static %}
+{% load user_tags %}
+<div class="min-height-200px">
+    <div class="row clearfix">
+        <div class="col-sm-12 col-md-4 mb-30">
+            <div class="card card-box bg-info text-white">
+                <div class="row">
+                    <div>
+                        <i class="icon-copy fa fa-hand-o-right hand" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Next Inhalation</h5>
+                        <p class="card-text">{{device_details.next_inhalation}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 mb-30">
+            <div class="card card-box" style="background-color: #D97D54;">
+                <div class="row">
+                    <div>
+                        <i class="icon-copy fa fa-hand-o-right hand" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Dosages Left</h5>
+                        <p class="card-text text-white">{{device_details.dosage_left}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 mb-30">
+            <div class="card card-box bg-info text-white">
+                <div class="row">
+                    <div>
+                        <i class="icon-copy fa fa-hand-o-right hand" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Name of the Medication</h5>
+                        <p class="card-text text-white">{{device_details.med_name}}</p>
+                    </div>
+                </div>	
+            </div>
+        </div>
+    </div>
+    <div class="row clearfix card1">
+        <div class="col-sm-12 col-md-4 mb-30">
+            <div class="card card-box bg-info text-white">
+                <div class="row">
+                    <div>
+                        <i class="icon-copy fa fa-hand-o-right hand" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Last Inhalation</h5>
+                        <p class="card-text">{{device_details.last_inhalation}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 mb-30">
+            <div class="card card-box" style="background-color: #D97D54;">
+                <div class="row">
+                    <div>
+                        <i class="icon-copy fa fa-hand-o-right hand" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Expiry Date</h5>
+                        <p class="card-text text-white">{{device_details.expiry_date}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-4 mb-30">
+            <div class="card card-box bg-info text-white">
+                <div class="row">
+                    <div>
+                        <i class="icon-copy fa fa-hand-o-right hand" aria-hidden="true"></i>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title text-white">Manufacturar</h5>
+                        <p class="card-text text-white">{{device_details.manufacturer}}</p>
+                    </div>
+                </div>	
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-4 mb-30">
+            <div class="card-box pd-20 height-100-p mb-30">
+                <div class="row">
+                    <div class="title">
+                        <h5 style="margin-right: 72px;">Inhalation Timing</h5>
+                    </div>
+                    <div class="title">
+                        <h5 >Time Interval</h5>
+                    </div>
+                </div>
+                <div class="container pd-0">
+                <div class="timeline mb-30">
+                    <ul>
+                        {% for inhalation in inhalations %}
+                            <li>
+                                <div class="timeline-date">
+                                    <i class="fa fa-calendar" style="margin-right:4px;"></i>{{inhalation.date}} <i class="fa fa-clock-o"style="margin-right:4px;"></i>{{inhalation.time}}
+                                </div>
+                                <div class="timeline-desc">	
+                                    <p style="margin: 47px 5px -6px 93px;">{{inhalation.interval}}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+            </div>
+        </div>
+        <div class="col-xl-8 mb-30">
+            <div class="card-box height-100-p pd-20">
+                <div class="row">
+                    <h5 class="h4 mb-20 weather">Weather Forecast</h5>
+                    <input type="text" disabled id="city" placeholder="Please enable location permission">
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="weather_forecast">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Temperature</th>
+                                <th scope="col">Humidity</th>
+                                <th scope="col">Pollen</th>
+                                {% comment %} <th scope="col">Air Quality</th> {% endcomment %}
+                                <th scope="col">SO₂</th>
+                                <th scope="col">NO₂</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for data in table_data %}
+                            <tr>
+                                <td>{{data.date|date:"d-m-Y" }}}</td>
+                                <td scope="col">{{data.temperature}}</td>
+                                <td scope="col">{{data.humidity}}</td>
+                                <td scope="col">{{data.pollen}}</td>
+                                {% comment %} <td scope="col">{{data.air_quality}}</td> {% endcomment %}
+                                <td scope="col">{{data.so}}</td>
+                                <td scope="col">{{data.no}}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>		
+    <div class="row">
+        <div class="col-lg-7 col-md-12 col-sm-12 mb-30">
+            <div class="card-box pd-30 height-100-p">
+                <h5 class="">Doctor Recommendation</h5>
+                {% for recommendation in recommendations %}
+                {% if forloop.counter|divisibleby:"4" %}
+                <div class="row alert alert-primary" style="margin-top:17px">
+                {% elif forloop.counter|divisibleby:"3" %}
+                <div class="row alert alert-success" style="margin-top:17px">
+                {% elif forloop.counter|divisibleby:"2" %}
+                <div class="row alert alert-danger" style="margin-top:17px">
+                {% else %}
+                <div class="row alert alert-warning" style="margin-top:17px">
+                {% endif %}
+                    <button type="button" class="btn btn-outline-primary" style="margin-right: 17px;">{{ recommendation.date|date:"d-m-Y" }}</button>
+                    <img src="{{ recommendation.doctor|get_avatar_thumbnail_url }}" alt="" class="recom" style="border-radius: 37px;">
+                    <p style="margin-top:17px;margin-left: 19px;font-size: 18px;">{{ recommendation.prescription }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <div class="col-lg-5 col-md-12 col-sm-12 mb-30">
+            <div class="card-box pd-30 height-100-p">
+                <div class="col-12 d-inline-flex">
+                    <h5 class="mr-2 col-10">My allergies</h5>
+                    <a href="{% url 'user:edit-allergies' %}" class="edit-icon"><i class="fa fa-pencil"></i></a>
+                </div>
+                <ul class="list-group list-group-flush" style="margin-top:4px;">
+                    {% for allergy in user_allergies %}
+                        <li class="list-group-item">{{ allergy }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6 col-md-12 col-sm-12 mb-30">
+            <div class="card-box pd-30 height-100-p">
+                <h5 class="">Medication Discipline</h5>
+                <div class="calendar-wrap">
+                    <div id='calendar'></div>
+                </div>
+                <div id="modal-view-event-add" class="modal modal-top fade calendar-modal ">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content mx-h-350 customscroll">
+                            <form id="add-event">
+                                <div class="modal-body">
+                                    <table class="table table-bordered"  id="calendar_inhalation_table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Inhalation time</th>
+                                                <th scope="col">Angle</th>
+                                                <th scope="col">Shaken</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        </tbody>
+                                    </table>
+                                    <div class="faq-wrap">
+                                        <div id="accordion"></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 col-md-12 col-sm-12 mb-30">
+        <div class="card-box pd-30 height-100-p">
+            <h5 class="">Adherence Reports</h5>
+            <div id="controls"></div>
+            <div id="chartdiv"></div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
+        <div class="row">
+            <div class="col-sm-12 col-md-4 mb-30">	
+                <div class="card-box pd-30 height-100-p">
+                    <h5 class="">Battery Status</h5>
+                    <div class='battery'>
+                        <!--
+                        "data-power" can be set to any value between 0 and 100,
+                        Additional bars can be added too. But you will need
+                        to resize the battery div.  
+                        -->
+                        <div class='bar' data-power='10'></div>
+                        <div class='bar' data-power='20'></div>
+                        <div class='bar' data-power='30'></div>
+                        <div class='bar' data-power='40'></div>
+                        <div class='bar' data-power='50'></div>
+                        <div class='bar' data-power='60'></div>
+                        <div class='bar' data-power='70'></div>
+                        <div class='bar' data-power='80'></div>
+                        <div class='bar' data-power='90'></div>
+                        <div class='bar' data-power='100'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 mb-30">
+                <div class="card-box pd-30 height-100-p">
+                    <h5 class="">Canister Status</h5>
+                    <div class='battery1'>
+                        <!--
+                        "data-power" can be set to any value between 0 and 100,
+                        Additional bars can be added too. But you will need
+                        to resize the battery div.  
+                        -->
+                        <div class='bar1' data-power='10'></div>
+                        <div class='bar1' data-power='20'></div>
+                        <div class='bar1' data-power='30'></div>
+                        <div class='bar1' data-power='40'></div>
+                        <div class='bar1' data-power='50'></div>
+                        <div class='bar1' data-power='60'></div>
+                        <div class='bar1' data-power='70'></div>
+                        <div class='bar1' data-power='80'></div>
+                        <div class='bar1' data-power='90'></div>
+                        <div class='bar1' data-power='100'></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-4 mb-30">
+                <div class="card-box pd-30 height-100-p">
+                <h5 class="">Inhaler Expiry Status</h5>
+                <div class='battery2'>
+                    <!--
+                    "data-power" can be set to any value between 0 and 100,
+                    Additional bars can be added too. But you will need
+                    to resize the battery div.  
+                    -->
+                    <div class='bar2' data-power='10'></div>
+                    <div class='bar2' data-power='20'></div>
+                    <div class='bar2' data-power='30'></div>
+                    </div>
+                    <!-- End Project HTML -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .recom {
+        max-width: 60px;
+    }
+</style>

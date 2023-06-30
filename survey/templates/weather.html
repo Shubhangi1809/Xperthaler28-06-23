@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box height-100-p pd-20">
+                <div class="row" style="margin-top: -21px;">
+                    <form action="" method="GET" class="form-inline">
+                        <div class="chat-search" style="margin-right: 25px;">
+                            <span class="ti-search"></span>
+                            <input type="text" id="city" name="city" placeholder="City to Visit" value='{{ request.GET.city }}'>
+                            <div id="city_message" class="message"></div>
+                        </div>
+                        <div class="chat-search get_forecast_btn">
+                            <input type="submit" id="get_forecast" value='Get forecast'>
+                        </div>
+                    </form>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="weather" class="table_data" > 
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Temperature</th>
+                                <th scope="col">Humidity</th>
+                                <th scope="col">Pollen</th>
+                                <th scope="col">Air Quality</th>
+                                <th scope="col">SO₂</th>
+                                <th scope="col">NO₂</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if forecast.items %}
+                            {% for date, data in forecast.items %}
+                                <tr>
+                                    <td>{{date}}</td>
+                                    <td scope="col">{{data.avg_temp}}</td>
+                                    <td scope="col">{{data.avg_humidity}}</td>
+                                    <td scope="col">{{data.pollen}}</td>
+                                    <td scope="col">{{data.air_quality}}</td>
+                                    <td scope="col">{{data.so2}}</td>
+                                    <td scope="col">{{data.no2}}</td>
+                                </tr>
+                            {% endfor %}
+                            {% else %}
+                            <tr>
+                                <td colspan="7" class="text-center">Enter city to visit to get weather forecast.</td>
+                            </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock%}

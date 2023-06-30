@@ -1,0 +1,99 @@
+.battery {
+  padding: 20px 13px;
+  width: 305px;
+  border: solid thin #000;
+  position: relative;
+  margin-top: 7px;
+}
+
+.battery:after {
+  content: " ";
+  top: 31px;
+  right: -7px;
+  height: 20px;
+  width: 7px;
+  position: absolute;
+  background: #000;
+}
+
+.bar {
+  cursor: pointer;
+  display: inline-block;
+  width: 0;
+  border: solid thin rgba(255, 255, 255, .1);
+  padding:18px 10px;
+  height: 30px;
+  background: transparent;
+  transition: background 1s;
+}
+
+.bar.active {
+  background: limegreen;
+}
+.battery1 {
+  padding: 20px 13px;
+  width: 305px;
+  border: solid thin #000;
+  position: relative;
+  margin-top: 7px;
+}
+
+.battery1:after {
+  content: " ";
+  top: 31px;
+  right: -7px;
+  height: 20px;
+  width: 7px;
+  position: absolute;
+  background: #000;
+}
+
+.bar1 {
+  cursor: pointer;
+  display: inline-block;
+  width: 0;
+  border: solid thin rgba(255, 255, 255, .1);
+  padding:18px 10px;
+  height: 30px;
+  background: transparent;
+  transition: background 1s;
+}
+
+.bar1.active {
+  background: limegreen;
+}
+
+
+.battery2 {
+  padding: 20px 22px;
+  width: 153px;
+  border: solid thin #000;
+  position: relative;
+  margin-top: 7px;
+}
+
+.battery2:after {
+  content: " ";
+  top: 31px;
+  right: -7px;
+  height: 20px;
+  width: 7px;
+  position: absolute;
+  background: #000;
+}
+
+.bar2 {
+  cursor: pointer;
+  display: inline-block;
+  width: 0;
+  border: solid thin rgba(255, 255, 255, .1);
+  padding:18px 14px;
+  height: 30px;
+  background: transparent;
+  transition: background 1s;
+}
+
+
+.bar2.active {
+  background: limegreen;
+}

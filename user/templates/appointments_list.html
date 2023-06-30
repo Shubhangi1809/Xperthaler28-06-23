@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% load user_tags %}
+{% block content %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box pd-30 height-100-p pd-20 mb-30">
+                <div class="d-inline-flex float-right">
+                    <a href="{% url 'user:add-appointment' pk=id redirect_type=0 %}" class="icon"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Symptom</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if object_list %}
+                                {% for  i in object_list %}
+                                    <tr>
+                                        <td>{{ i.symptoms }}</td>
+                                        <td>{{ i.date|date:"d-m-Y" }}</td>
+                                        <td>{{ i.time|get_user_time_format:user }}</td>
+                                        <td>
+                                            <a href="{% url 'user:edit-appointment' pk=i.id redirect_type=0 %}" class="action-icon"><i class="fa fa-pencil"></i></a>
+                                            <a href="{% url 'user:delete-appointment' pk=i.id redirect_type=0 %}" class="actiasdon-icon"><i class="fa fa-trash"></i></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No appointments.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include 'pagination.html' %}
+            </div>
+            <div class="form-group mb-0">
+                <a href="{% url 'user:patient-details' pk=id %}" class="btn btn-primary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .icon {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        text-align: center;
+        -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        background-color:white;
+    }
+    .action-icon {
+        margin: 5px;
+    }
+</style>
+{% endblock%}
+{% block footer_javascript %}
+{% endblock %}

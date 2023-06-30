@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box pd-30 height-100-p">
+                <div class="col-12 d-inline-flex">
+                    <h4 class="col-11">Doctors</h4>
+                    <a href="{% url 'user:add-doctor' %}" class="icon"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="weather_forecast">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if doctors_list %}
+                                {% for  i in doctors_list  %}
+                                    <tr>
+                                        <th scope="col">{{i.name}}</th>
+                                        <th scope="col">{{i.email}}</th>
+                                        <th scope="col">{{i.phone_number}}</th>
+                                        <th scope="col">{{i.status}}</th>
+                                        <th scope="col">
+                                            <a href="{% url 'user:remove-doctor' pk=i.id %}" class="action-icon"><i class="fa fa-trash"></i></a>
+                                        </th>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No doctors added.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-box pd-30 height-100-p" style="margin-top:30px;">
+                <div class="col-12 d-inline-flex">
+                    <h4 class="col-11">Caretakers</h4>
+                    <a href="{% url 'user:add-caretaker' %}" class="icon"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="weather_forecast">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Status</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if caretakers_list %}
+                                {% for  i in caretakers_list  %}
+                                    <tr>
+                                        <th scope="col">{{i.name}}</th>
+                                        <th scope="col">{{i.email}}</th>
+                                        <th scope="col">{{i.phone_number}}</th>
+                                        <th scope="col">{{i.status}}</th>
+                                        <th scope="col">
+                                            <a href="{% url 'user:remove-caretaker' pk=i.id %}" class="action-icon"><i class="fa fa-trash"></i></a>
+                                        </th>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No caretakers added.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+			</div>
+			<div class="card-box pd-30 height-100-p"style="margin-top:30px;">
+                <div class="col-12 d-inline-flex">
+                    <h4 class="col-11">Pharmacy Details</h4>
+                    <a href="{% url 'user:add-pharmacy' %}" class="icon"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="weather_forecast">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if pharmacies %}
+                                {% for  i in pharmacies  %}
+                                    <tr>
+                                        <th scope="col">{{i.name}}</th>
+                                        <th scope="col">{{i.email}}</th>
+                                        <th scope="col">{{i.phone_number}}</th>
+                                        <th scope="col">
+                                            <a href="{% url 'user:edit-pharmacy' pk=i.id %}" class="action-icon"><i class="fa fa-pencil"></i></a>
+                                            <a href="{% url 'user:delete-pharmacy' pk=i.id %}" class="action-icon"><i class="fa fa-trash"></i></a>
+                                        </th>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No pharmacies added.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-box pd-30 height-100-p"style="margin-top:30px;">
+                <div class="col-12 d-inline-flex">
+                    <h4 class="col-11">Emergency Contact Details</h4>
+                    <a href="{% url 'user:add-emergency-contact' %}" class="icon"><i class="fa fa-plus"></i></a>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="weather_forecast">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Phone number</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if emergency_contact %}
+                                {% for  i in emergency_contact  %}
+                                    <tr>
+                                        <th scope="col">{{i.name}}</th>
+                                        <th scope="col">{{i.email}}</th>
+                                        <th scope="col">{{i.phone_number}}</th>
+                                        <th scope="col">
+                                            <a href="{% url 'user:edit-emergency-contact'  pk=i.id %}" class="action-icon"><i class="fa fa-pencil"></i></a>
+                                            <a href="{% url 'user:delete-emergency-contact'  pk=i.id %}"><i class="fa fa-trash"></i></a>
+                                        </th>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No emergency contact added.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .icon {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        text-align: center;
+        -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        background-color:white;
+    }
+    .action-icon {
+        margin: 5px;
+    }
+</style>
+{% endblock%}
+{% block footer_javascript %}
+{% endblock %}

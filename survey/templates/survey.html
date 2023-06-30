@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+				<div class="card-box height-100-p pd-20">
+                    <div class="row" style="margin-top: -21px;">
+                        <form action="" method="GET" class="form-inline">
+                            <div class="chat-search" style="margin-right: 25px;">
+                                <input type="date" id="survey_date" name="survey_date" value='{{ request.GET.survey_date }}'>
+                                <div id="city_message" class="message"></div>
+                            </div>
+                            <div class="chat-search get_forecast_btn">
+                                <input type="submit" id="get_survey" value='Get survey'>
+                            </div>
+                        </form>
+                    </div>
+					<form action="" method="POST" id="jobsForm">
+                        {% csrf_token %}
+                        {% if questions %}
+                            <div id="accordion">
+                                {% for question in questions %}
+                                    <div class="card mt-2 mb-2 p-2">
+                                        <div id="faq1" class="collapse show" data-parent="#accordion">
+                                            <div class="card-body">
+                                                <strong>Question #{{ forloop.counter }}:</strong> &nbsp{{question.question}}
+                                            </div>
+                                        </div>
+                                        <div class="inline">
+                                            {% for option in question.options %}
+                                                {% if question.response is not None and question.response == forloop.counter %}
+                                                    <input type="radio" name='{{ question.id }}' value="{{ forloop.counter }}" checked>
+                                                {% else %}
+                                                    <input type="radio" name='{{ question.id }}' value="{{ forloop.counter }}">
+                                                {% endif %}
+                                                <label for="html">{{ option }}</label><br>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div id="survey_message" class="message"></div>
+							<input type="submit" class="btn btn-primary" id="submit_survey" value='Submit'>
+                        {% endif %}
+					</form>
+					</div>
+				</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock%}
+{% block footer_javascript %}
+<script>
+    $("#submit_survey").click(function ($this) {
+        survey = {}
+        all = 1
+        {% for question in questions%}
+            answer = $("input[name="+{{question.id}}+"]:checked").val()
+            if (answer == null) {
+                $('#survey_message').text('Please answer all questions.')
+                return false;
+            }
+        {% endfor %}
+        $('#survey_message').text('Submitting.')
+    });
+</script>
+{% endblock %}

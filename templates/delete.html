@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box height-100-p pd-20">
+                <div class="right-sidebar-body">
+                    <div class="right-sidebar-body-content">
+                        <form method="post">{% csrf_token %}
+                            <p>{{ warning }}</p>
+                            <input type="submit" class="btn btn-primary" value="Confirm ">
+                            <a href="javascript:history.go(-1)" class="btn btn-primary">Cancel</a>
+                        </form>
+                    </div>
+			    </div>
+		    </div>
+		</div>
+	</div>
+</div>
+{% endblock%}

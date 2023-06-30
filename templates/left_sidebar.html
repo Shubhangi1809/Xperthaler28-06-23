@@ -1,0 +1,85 @@
+<div class="left-side-bar">
+    <div class="brand-logo">
+        <a href="{% url 'user:dashboard' %}">
+            <h4 class="dashboard-title">Xperthaler</h4>
+        </a>
+        <div class="close-sidebar" data-toggle="left-sidebar-close">
+            <i class="ion-close-round"></i>
+        </div>
+    </div>
+    <div class="menu-block customscroll">
+        <div class="sidebar-menu">
+            <ul id="accordion-menu">
+                <li>
+                    <a href="{% url 'user:dashboard' %}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'user:dashboard_auto_refresh' %}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-house-1"></span><span class="mtext">Home auto refresh</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'user:chat' %}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-chat3"></span><span class="mtext">Chat</span>
+                    </a>
+                </li>
+                {% if role == 'patient' %}
+                    <li>
+                        <a href="{% url 'survey:weather-data' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-wind"></span><span class="mtext">Weather</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'survey:survey' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-bar-chart"></span><span class="mtext">Survey/Daily Questionnaire</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'user:user-connections' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-add"></span><span class="mtext">Add Doctor/CareTaker</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'user:maps' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-map"></span><span class="mtext">Maps</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'inhaler:reports' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-file"></span><span class="mtext">Reports</span>
+                        </a>
+                    </li>
+                {% elif role == 'doctor' %}
+                    <li>
+                        <a href="{% url 'user:calendar' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-calendar-5"></span><span class="mtext">Calendar/Schedule</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{% url 'user:patients' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-group"></span><span class="mtext">Patients</span>
+                        </a>
+                    </li>
+                {% elif role == 'caretaker' %}
+                    <li>
+                        <a href="{% url 'user:patients' %}" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-group"></span><span class="mtext">Relatives/Friends</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <li>
+                    <a href="{% url 'user:profile' %}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-user1"></span><span class="mtext">Profile</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'user:preferences' %}" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-settings2"></span><span class="mtext">Preferences</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

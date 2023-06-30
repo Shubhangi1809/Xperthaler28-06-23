@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load user_tags %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-30">
+                    <div class="pd-20 card-box height-100-p">
+                        <h5 class="mb-20 h5 text-blue">Add data</h5>
+                        <div class="message"></div>
+                        <div class="form-group">
+                            <label>Register device</label>
+                            <input class="form-control form-control-lg" type="text" id="register_device" name="register_device" value="">
+                            <div id="register_device_message" class="message"></div>
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" id="register_device_btn" value='Register device'/>&nbsp;
+                        </div>
+                        <div class="form-group">
+                            <label>Add alarm</label>
+                            <input class="form-control form-control-lg" type="text" id="add_alarm" name="add_alarm" value="">
+                            <div id="add_alarm_message" class="message"></div>
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" id="add_alarm_btn" value='Add alarm'/>&nbsp;
+                        </div>
+                        <div class="form-group">
+                            <label>Register dose</label>
+                            <input class="form-control form-control-lg" type="text" id="register_dose" name="register_dose" value="">
+                            <div id="register_dose_message" class="message"></div>
+                            <input type="submit" class="btn btn-primary btn-lg btn-block" id="register_dose_btn" value='Register dose'/>&nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+
+<script src="{% static 'vendors/scripts/core.js' %}"></script>
+<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
+<script src="{% static 'vendors/scripts/process.js' %}"></script>
+<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+<script src="{% static 'src/plugins/cropperjs/dist/cropper.js' %}"></script>
+
+<!-- bootstrap-tagsinput js -->
+<script src="{% static 'src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+<style>
+    #city {
+        margin-left: 0px;
+    }
+    #imageLoader {
+        display: None;
+    }
+</style>
+<script>
+    $('#register_device_btn').on('click', function(){
+        data = {}
+        data['user_id'] = "{{ user.id }}"
+        device_data = $("#register_device").val()
+        if (device_data != '') {
+            device_data = device_data.split("&")
+            data['medicine_name'] = device_data[0]
+            data['patient_name'] = device_data[1]
+            data['medicine_type'] = device_data[2]
+            data['max_count'] = device_data[3]
+            data['expiry_date'] = device_data[4]
+            data['company_name'] = device_data[5]
+            data['ble_name'] = device_data[6]
+            data['mac_id'] = device_data[7]
+            console.log(data)
+            $.ajax({
+                type: 'POST',                 
+                url: "{% url 'api:save-device' %}",
+                dataType:'json',
+                data: data,
+                success: function (data, abc) {
+                    $('#register_device_message').text('Updated successfully')
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) { 
+                    $('#register_device_message').text('Update failed')
+                    $('#register_device_message').text(JSON.parse(XMLHttpRequest.responseText).message)
+                }
+            });
+        } else {
+            $('#register_device_message').text("Enter data")
+        }
+    });
+    $('#add_alarm_btn').on('click', function(){
+        data = {}
+        data['user_id'] = "{{ user.id }}"
+        alarm_data = $("#add_alarm").val()
+        if (alarm_data != '') {
+            alarm_data = alarm_data.split("&")
+            data['alarm_1_time'] = alarm_data[0]
+            data['alarm_1_doses'] = alarm_data[1]
+            data['alarm_1_type'] = alarm_data[2]
+            data['alarm_2_time'] = alarm_data[3]
+            data['alarm_2_doses'] = alarm_data[4]
+            data['alarm_2_type'] = alarm_data[5]
+            data['alarm_3_time'] = alarm_data[6]
+            data['alarm_3_doses'] = alarm_data[7]
+            data['alarm_3_type'] = alarm_data[8]
+            data['alarm_4_time'] = alarm_data[9]
+            data['alarm_4_doses'] = alarm_data[10]
+            data['alarm_4_type'] = alarm_data[11]
+            $.ajax({
+                type: 'POST',                 
+                url: "{% url 'api:save-device-alarm' %}",
+                dataType:'json',
+                data: data,
+                success: function (data, abc) {
+                    $('#add_alarm_message').text('Updated successfully')
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    $('#add_alarm_message').text('Update failed')
+                    $('#add_alarm_message').text(JSON.parse(XMLHttpRequest.responseText).message)
+                }
+            });
+        } else {
+            $('#add_alarm_message').text("Enter data")
+        }
+    });
+    $('#register_dose_btn').on('click', function(){
+        data = {}
+        data['user_id'] = "{{ user.id }}"
+        inhalation_data = $("#register_dose").val()
+        if (inhalation_data != '') {
+            inhalation_data = inhalation_data.split("&")
+            console.log(inhalation_data)
+            data['count'] = inhalation_data[0]
+            data['inhalation_time'] = inhalation_data[1]
+            data['shaken'] = inhalation_data[2]
+            data['x_angle'] = inhalation_data[3]
+            data['y_angle'] = inhalation_data[4]
+            data['temperature'] = inhalation_data[5]
+            $.ajax({
+                type: 'POST',                 
+                url: "{% url 'api:save-dose' %}",
+                dataType:'json',
+                data: data,
+                success: function (data, abc) {
+                    $('#register_dose_message').text('Updated successfully')
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    $('#register_dose_message').text('Update failed')
+                    $('#register_dose_message').text(JSON.parse(XMLHttpRequest.responseText).message)
+                }
+            });
+        } else {
+            $('#register_dose_message').text("Enter data")
+        }
+    });
+</script>
+{% endblock %}

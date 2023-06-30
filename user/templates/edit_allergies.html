@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box height-100-p pd-20">
+                <div class="right-sidebar-body">
+                    <div class="right-sidebar-body-content">
+                        <form id="allergies_form" role="form" action="" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                            <div class="form-group d-inline">
+                                <select class="form-control form-control-lg js-select2 col-10" id="id_allergies" name="allergies" multiple>
+                                    {% for allergy in user_allergies %}
+                                        <option value="{{ allergy }}" selected>{{ allergy }}</option>
+                                    {% endfor %}
+                                </select>
+                                <input type="submit" class="btn btn-primary" id= "update_allergies" value="Update ">
+                            </div>
+                        </form>
+                        <br>
+                        <hr>
+                        <div class="col-12 d-inline-flex">
+                            <h5 class="mr-2">My allergies</h5>
+                        </div>
+                        <ul class="list-group list-group-flush" style="margin-top:4px;">
+                            {% for key, allergy in user_allergies %}
+                                <li class="list-group-item">{{ allergy }}</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+			    </div>
+		    </div>
+		</div>
+	</div>
+</div>
+{% endblock%}
+{% block footer_javascript %}
+<!-- Time picker code are at core.js -->
+<script src="{% static 'vendors/scripts/core.js' %}"></script>
+<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
+<script src="{% static 'vendors/scripts/process.js' %}"></script>
+<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+<script src="{% static 'src/scripts/color.js' %}"></script>
+<script src="{% static 'src/scripts/sidebarcolor.js' %}"></script>
+<script src="{% static 'js/style.js' %}"></script>
+<script>
+    $(document).ready(function(){
+        $('#id_allergies').empty();
+        '{% for key, allergy in user_allergies %}'
+            $('#id_allergies').append('<option value= ' + '{{key}}' + ' selected>' + '{{allergy}}' + '</option>');
+        '{% endfor %}'
+        $("#id_allergies").select2({
+            closeOnSelect : false,
+            placeholder : "Select your disease",
+            allowClear: true,
+            tags: true // создает новые опции на лету
+        });
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends 'main_base.html' %}
+{% load static %}
+{% block content %}
+    {% include "anonymous_header.html" %}
+    {% include 'message.html' %}
+	<div class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-5 col-lg-7">
+					<img src="{% static 'vendors/images/register-page-img.png' %}" alt="">
+				</div>
+				<div class="col-md-7 col-lg-5">
+					<div class="register-box bg-white box-shadow border-radius-10">
+						<div class="wizard-content">
+                            <form id="registration" class="tab-wizard2 wizard-circle wizard" role="form" action="" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+								<!-- Step 1 -->
+								<h5>Type Of Account</h5>
+								<section>
+									<div class="form-wrap max-width-600 mx-auto">
+                                        {% for field in account_type_form %}
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10 field-div-error">
+                                                <span class="text-danger small">{{ field.errors }}</span>
+                                            </div>
+                                            <div class="field-wrap col-sm-12">{{ field }}</div>
+                                        </div>
+										{% endfor %}
+                                    </div>
+								</section>
+								<!-- Step 2 -->
+								<h5>Personal Information</h5>
+								<section>
+									<div class="form-wrap max-width-600 mx-auto">
+                                        {% for field in basic_form %}
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                                                <div class="col-sm-8">
+                                                    <span class="text-danger small">{{ field.errors }}</span>
+                                                    {{ field }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                        {% for field in profile_form %}
+                                            <div class="form-group row">
+                                                <label class="col-sm-4 col-form-label">{{ field.label_tag }}</label>
+                                                <div class="col-sm-8">
+                                                    <span class="text-danger small">{{ field.errors }}</span>
+                                                    {{ field }}
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+									</div>
+								</section>
+								<!-- Step 3 -->
+								<h5>Overview Information</h5>
+								<section>
+									<div class="form-wrap max-width-600 mx-auto">
+										<ul class="register-info">
+											<li>
+												<div class="row">
+													<div class="col-sm-4 weight-600">Full Name</div>
+													<div class="col-sm-8" id='full_name_confirm'></div>
+												</div>
+											</li>
+											<li>
+												<div class="row">
+													<div class="col-sm-4 weight-600">Email Address</div>
+													<div class="col-sm-8" id='email_confirm'></div>
+												</div>
+											</li>
+											<li>
+												<div class="row">
+													<div class="col-sm-4 weight-600">Location</div>
+													<div class="col-sm-8" id='location_confirm'></div>
+												</div>
+											</li>
+										</ul>
+										<div class="custom-control custom-checkbox mt-4">
+											<input type="checkbox" class="custom-control-input" id="customCheck1">
+											<!-- <label class="custom-control-label" for="customCheck1">I have read and agreed to the <a href="https://policies.google.com/terms?hl=en-US" class="service">terms of services</a> and <a href="https://policies.google.com/privacy?hl=en-US" class="policy">privacy policy</a></label> -->
+											<label class="custom-control-label" for="customCheck1">I have read and agreed to the<a class="text-center" data-toggle="modal" data-target="#exampleModal" style="text-decoration: underline;">
+                                            terms of services</a> and <a class="text-center" data-toggle="modal" data-target="#exampleModal1" style="text-decoration: underline;">
+                                            privacy policy</a>
+                                            {% comment %} <div class = 'error'></div> {% endcomment %}
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered max-width-400" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body text-center font-18">
+                                                                <h3 class="mb-20">Terms Of Services</h3>
+                                                                <div style="text-align:justify;font-size:15px">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+                                                            </div>
+                                                            <div class="modal-footer justify-content-center">
+                                                                <a href="" class="btn btn-primary">I agree</a>
+                                                                <a href="" class="btn btn-primary">I disagree</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered max-width-400" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-body text-center font-18">
+                                                                <h3 class="mb-20">Privacy Policy</h3>
+                                                                <div style="text-align:justify;font-size:15px">Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.</div>
+                                                            </div>
+                                                            <div class="modal-footer justify-content-center">
+                                                                <a href="" class="btn btn-primary">I agree</a>
+                                                                <a href="" class="btn btn-primary">I disagree</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+									</div>
+								</section>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- success Popup html Start -->
+	<button type="button" id="success-modal-btn" hidden data-toggle="modal" data-target="#success-modal" data-backdrop="static">Launch modal</button>
+	<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered max-width-400" role="document">
+			<div class="modal-content">
+				<div class="modal-body text-center font-18">
+					<h3 class="mb-20">Form Submitted!</h3>
+					<div class="mb-30 text-center"><img src="{% static 'vendors/images/success.png' %}"></div>
+					Thanks for registering with Xperthaler.
+				</div>
+				<div class="modal-footer justify-content-center">
+					<a href="{% url 'user:login'%}" class="btn btn-primary">Done</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- success Popup html End -->
+	<!-- js -->
+	<script src="{% static 'vendors/scripts/core.js' %}"></script>
+	<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
+	<script src="{% static 'vendors/scripts/process.js' %}"></script>
+	<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+	<script src="{% static 'src/plugins/jquery-steps/jquery.steps.js' %}"></script>
+	<script src="{% static 'vendors/scripts/steps-setting.js' %}"></script>
+	<script src="{% static 'src/scripts/custom.js' %}"></script>
+	<script src="{% static 'src/scripts/country.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        {% comment %} dob = document.getElementById("id_dob").value.split("/")
+        if (dob != '') {
+            dob = dob[2] + '-' + dob[1] + '-' + dob[0]
+            document.getElementById("id_dob").value = dob;
+        } {% endcomment %}
+        document.getElementById("id_dob").type = 'date'
+    </script>
+{% endblock content %}

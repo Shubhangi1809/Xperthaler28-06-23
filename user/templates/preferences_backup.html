@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box height-100-p pd-20">
+                <div class="right-sidebar-body">
+                    <div class="right-sidebar-body-content">
+					    <div class="row">
+                	        <div class="col-lg-6 col-md-3 col-sm-12">
+						        <div class="form-group">
+					            <h4 class="weight-600 font-18 pb-10">Header Background</h4>
+				            </div>
+					    </div>
+					    <div class="col-lg-6 col-md-3 col-sm-12">
+							<label>Color Picker</label><input type="color" id="clr" value="#d97d54" style="margin-left:8px;">
+						</div>
+				    </div>
+				    <div class="row">
+                	    <div class="col-lg-6 col-md-3 col-sm-12">
+						    <div class="form-group">
+					            <h4 class="weight-600 font-18 pb-10">Sidebar Background</h4>
+				            </div>
+					    </div>
+					    <div class="col-lg-6 col-md-3 col-sm-12">
+							<label>Color Picker</label><input type="color" id="sideclr" value="#009cdc" style="margin-left:8px;" >
+						</div>
+				    </div>
+                    <div class="row">
+                        <div class="col-lg-6 col-md-3 col-sm-12">
+                            <div class="form-group">
+                        <h4 class="weight-600 font-18 pb-10">Change Time Format</h4>
+                    </div>
+					</div>
+						<div class="col-lg-6 col-md-3 col-sm-12">
+							<select class="selectpicker form-control" >
+								<option>Standard Time</option>
+								<option>Railway Time</option>
+							</select>
+						</div>
+					</div>
+                    <div class="reset-options pt-30 text-center">
+                        <button class="btn btn-danger" id="reset-settings">Reset Settings</button>
+                    </div>
+			    </div>
+		    </div>
+		</div>
+	</div>
+</div>
+<!-- Time picker code are at core.js -->
+<script src="{% static 'vendors/scripts/core.js' %}"></script>
+<script src="{% static 'vendors/scripts/script.min.js' %}"></script> 
+<script src="{% static 'vendors/scripts/process.js' %}"></script> 
+<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+
+
+
+
+<script src="{% static 'src/scripts/color.js' %}"></script>
+<script src="{% static 'src/scripts/sidebarcolor.js' %}"></script>
+{% comment %} <script src="{% static 'js/style.js' %}"></script> {% endcomment %}
+{% endblock %}

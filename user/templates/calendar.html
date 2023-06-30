@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% load user_tags %}
+{% load static %}
+{% block content %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="pd-20 card-box mb-30">
+                <div id="calendar"></div>
+            </div>
+            <div class="pd-20 card-box mb-30">
+                <div class="row">
+                    <div class="col-xl-10">
+                        <h4>Appointments</h4>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped" id="">
+                        <thead>
+                            <tr>
+                                <th scope="col">Name</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if object_list %}
+                                {% for  i in object_list %}
+                                    <tr>
+                                        <td>{{ i.patient.first_name }}&nbsp{{ i.patient.last_name }}</td>
+                                        <td>{{ i.date|date:"d-m-Y" }}</td>
+                                        <td>{{ i.time|get_user_time_format:user }}</td>
+                                        <th scope="col">
+                                            <a href="{% url 'user:edit-appointment' pk=i.id redirect_type=1 %}" class="action-icon"><i class="fa fa-pencil"></i></a>
+                                            <a href="{% url 'user:delete-appointment' pk=i.id redirect_type=1 %}" class="action-icon"><i class="fa fa-trash"></i></a>
+                                        </th>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No notification.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include 'pagination.html' %}
+            </div>
+        </div>
+    </div>
+</div>
+<script src="{% static 'vendors/scripts/core.js' %}"></script>
+<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
+<script src="{% static 'vendors/scripts/process.js' %}"></script>
+<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.2/main.css">
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById('calendar');
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            initialView: 'dayGridMonth',
+            headerToolbar: {
+                left: 'prev,next today',
+                center: 'title',
+                right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+            },
+        events: {{ appointments|safe }},
+        });
+        calendar.render();
+    });
+</script>
+<style>
+    .icon {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        text-align: center;
+        -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        background-color:white;
+    }
+    .action-icon {
+        margin: 5px;
+    }
+</style>
+{% endblock%}

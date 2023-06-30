@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load user_tags %}
+{% load static %}
+{% block content %}
+	<div class="main-container">
+		<div class="pd-ltr-20 xs-pd-20-10">
+			<div class="min-height-200px">
+				{% include "page_title.html" %}
+                {% include 'message.html' %}
+			    <div class="page-header">
+                    <div class="row">
+                        <div class="col-xl-10">
+                            <h4>Patients List</h4>
+                        </div>
+                    </div>
+			        <div class="row clearfix">
+                        {% for  i in object_list %}
+                            <div class="col-xl-6 mb-30">
+                                <a href="{% url 'user:patient-details' pk=i.user.id %}" class=>
+                                    <div class="card-box height-100-p pd-20">
+                                        <div class="row">
+                                            <img src="{{ i.user|get_avatar_thumbnail_url }}" alt="" class="patient-img">
+                                            <span class="fa fa-circle text-light-green" style="margin-top: 85px;margin-left: -19px;"></span>
+                                            <div class="patient-info">
+                                                <div class="container">
+                                                    <div><i class="icon-copy fa fa-user" aria-hidden="true" style="margin-right: 5px;color: #D97D54;"></i>{{ i.user.first_name }} {{ i.user.last_name }}</div>
+                                                    <div><i class="icon-copy fa fa-mars" aria-hidden="true" style="margin-right: 5px;color: #D97D54;"></i>{{ i.user|get_user_gender }}</div>
+                                                    <div><i class="icon-copy ion-waterdrop"style="margin-right: 5px;color: #D97D54;"></i>{{ i.user|get_user_blood_group }}</div>
+                                                    <div><i class="icon-copy fa fa-empire" aria-hidden="true"style="margin-right: 5px;color: #D97D54;"></i>Allergic to Dust</div>
+                                                </div>
+                                            </div>
+                                        </div>			
+                                    </div>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% include 'pagination.html' %}
+                </div>
+		    </div>
+	    </div>
+    </div>
+{% endblock%}

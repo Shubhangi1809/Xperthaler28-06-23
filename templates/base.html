@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Basic Page Info -->
+	<meta charset="utf-8">
+	<title>Xperthaler</title>
+
+	<!-- Site favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'vendors/images/apple-touch-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'vendors/images/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'vendors/images/favicon-16x16.png' %}">
+
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendors/styles/core.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendors/styles/icon-font.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'src/plugins/cropperjs/dist/cropper.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendors/styles/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'src/styles/style.css' %}">
+	<!-- bootstrap-tagsinput css -->
+	<link rel="stylesheet" type="text/css" href="{% static 'src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.css' %}">
+
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+	 -->
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script src="https://cdn.amcharts.com/lib/4/core.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/geodata/worldLow.js"></script>
+    <script src="https://cdn.amcharts.com/lib/4/themes/animated.js"></script>
+    <script src="https://www.amcharts.com/lib/4/core.js"></script>
+    <script src="https://www.amcharts.com/lib/4/maps.js"></script>
+    <script src="https://www.amcharts.com/lib/4/geodata/worldIndiaLow.js"></script>
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+</head>
+<body>
+    {% include "header.html" %}
+    {% include "left_sidebar.html" %}
+    {% if role == 'patient' %}
+        {% include "right_sidebar.html" %}
+    {% endif %}
+	<div class="mobile-menu-overlay"></div>
+    {% block content %}
+    {% endblock content %}
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+{% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script> {% endcomment %}
+
+<script src="{% static 'vendors/scripts/core.js' %}"></script>
+<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
+<script src="{% static 'vendors/scripts/process.js' %}"></script>
+<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+<script src="{% static 'src/plugins/cropperjs/dist/cropper.js' %}"></script>
+<script src="{% static 'src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+{% block footer_javascript %}
+{% endblock %}
+</html>

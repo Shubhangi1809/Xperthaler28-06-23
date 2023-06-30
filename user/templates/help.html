@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+        </div>
+    </div>
+</div>
+<!-- js -->
+<script src="{% static 'vendors/scripts/core.js' %}"></script>
+<script src="{% static 'vendors/scripts/script.min.js' %}"></script> 
+<script src="{% static 'vendors/scripts/process.js' %}"></script> 
+<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+{% endblock %}

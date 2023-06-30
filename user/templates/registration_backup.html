@@ -1,0 +1,306 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+	<!-- Basic Page Info -->
+	<meta charset="utf-8">
+	<title>DeskApp - Bootstrap Admin Dashboard HTML Template</title>
+
+	<!-- Site favicon -->
+	<link rel="apple-touch-icon" sizes="180x180" href="{% static 'vendors/images/apple-touch-icon.png' %}">
+	<link rel="icon" type="image/png" sizes="32x32" href="{% static 'vendors/images/favicon-32x32.png' %}">
+	<link rel="icon" type="image/png" sizes="16x16" href="{% static 'vendors/images/favicon-16x16.png' %}">
+
+	<!-- Mobile Specific Metas -->
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+	<!-- Google Font -->
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+	<!-- CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'vendors/styles/core.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendors/styles/icon-font.min.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'src/plugins/jquery-steps/jquery.steps.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'vendors/styles/style.css' %}">
+	<!-- <link rel="stylesheet" type="text/css" href="{% static 'src/styles/style.css' %}"> -->
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119386393-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-119386393-1');
+	</script>
+</head>
+
+<body class="login-page">
+	<div class="login-header box-shadow">
+		<div class="container-fluid d-flex justify-content-between align-items-center">
+			<div class="brand-logo">
+				<a href="{% url 'user:dashboard'%}">
+					<div class="login-title">
+                        <h2 class="text-center text-primary">Xperthaler</h2>
+                    </div>
+				</a>
+			</div>
+			<div class="login-menu">
+				<ul>
+					<li><a href="{% url 'user:login'%}">Login</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="register-page-wrap d-flex align-items-center flex-wrap justify-content-center">
+		<div class="container">
+			<div class="row align-items-center">
+				<div class="col-md-5 col-lg-7">
+					<img src="{% static 'vendors/images/register-page-img.png' %}" alt="">
+				</div>
+				<div class="col-md-7 col-lg-5">
+					<div class="register-box bg-white box-shadow border-radius-10">
+						<div class="wizard-content">
+							<form class="tab-wizard2 wizard-circle wizard">
+								
+								<!-- Step 1 -->
+								<h5>Type Of Account</h5>
+								<section>
+								
+									<div class="form-wrap max-width-600 mx-auto">
+										
+											
+											<div class="col-sm-12">
+												<div class="custom-control custom-radio custom-control-inline pb-0">
+													<input type="radio" id="doctor" value = '0' name="profile_type" class="custom-control-input">
+													<label class="custom-control-label" for="doctor">Doctor</label>
+
+												</div>
+											</div>
+											<div class="col-sm-12">
+												<div class="custom-control custom-radio custom-control-inline pb-0">
+													<input type="radio" id="caretaker" value = '2' name="profile_type" class="custom-control-input">
+													<label class="custom-control-label" for="caretaker">Caretaker</label>
+												</div>
+											</div>
+											<div class="col-sm-12">
+												<div class="custom-control custom-radio custom-control-inline pb-0">
+													<input type="radio" id="admin" value = '1' name="profile_type" class="custom-control-input">
+													<label class="custom-control-label" for="admin">Patient</label>
+												</div>
+											</div>
+											</div>
+										
+									
+								</section>
+								<!-- Step 2 -->
+								<h5>Personal Information</h5>
+								<section>
+									<div class="form-wrap max-width-600 mx-auto">
+										
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Full Name*</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" id='full_name'>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Email Address*</label>
+											<div class="col-sm-8">
+												<input type="email" class="form-control" id='email'>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Phone number*</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control" id='phone_number' placeholder = "Ex:+91XXXXXXXXXX">
+											</div>
+										</div>
+										<div class="form-group row align-items-center">
+											<label class="col-sm-4 col-form-label">Gender*</label>
+											<div class="col-sm-8">
+												<div class="custom-control custom-radio custom-control-inline pb-0">
+													<input type="radio" id="male" value="0" name="gender" class="custom-control-input">
+													<label class="custom-control-label" for="male">Male</label>
+												</div>
+												<div class="custom-control custom-radio custom-control-inline pb-0">
+													<input type="radio" id="female" value="1" name="gender" class="custom-control-input">
+													<label class="custom-control-label" for="female">Female</label>
+												</div>
+												<div class="custom-control custom-radio custom-control-inline pb-0">
+													<input type="radio" id="others" name="gender" value="2" class="custom-control-input">
+													<label class="custom-control-label" for="others">Others</label>
+												</div>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Password*</label>
+											<div class="col-sm-8">
+												<input type="password" class="form-control" id='password'>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Confirm Password*</label>
+											<div class="col-sm-8">
+												<input type="password" class="form-control" id='confirm_password'>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Country</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control location" id='country'>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">State</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control location" id='state'>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">City</label>
+											<div class="col-sm-8">
+												<input type="text" class="form-control location" id='city'>
+											</div>
+										</div>
+									</div>
+								</section>
+								<!-- Step 3 -->
+								<h5>Overview Information</h5>
+								<section>
+									<div class="form-wrap max-width-600 mx-auto">
+										<ul class="register-info">
+											<li>
+												<div class="row">
+													<div class="col-sm-4 weight-600">Full Name</div>
+													<div class="col-sm-8" id='full_name_confirm'></div>
+												</div>
+											</li>
+											<li>
+												<div class="row">
+													<div class="col-sm-4 weight-600">Email Address</div>
+													<div class="col-sm-8" id='email_confirm'></div>
+												</div>
+											</li>
+											<li>
+												<div class="row">
+													<div class="col-sm-4 weight-600">Location</div>
+													<div class="col-sm-8" id='location_confirm'></div>
+												</div>
+											</li>
+										</ul>
+										<div class="custom-control custom-checkbox mt-4">
+											<input type="checkbox" class="custom-control-input" id="customCheck1">
+											<!-- <label class="custom-control-label" for="customCheck1">I have read and agreed to the <a href="https://policies.google.com/terms?hl=en-US" class="service">terms of services</a> and <a href="https://policies.google.com/privacy?hl=en-US" class="policy">privacy policy</a></label> -->
+											<label class="custom-control-label" for="customCheck1">I have read and agreed to the<a class="text-center" data-toggle="modal" data-target="#exampleModal" style="text-decoration: underline;">
+  terms of services</a> and <a class="text-center" data-toggle="modal" data-target="#exampleModal1" style="text-decoration: underline;">
+  privacy policy</a>
+  <div class = 'error'></div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered max-width-400" role="document">
+			<div class="modal-content">
+				<div class="modal-body text-center font-18">
+					<h3 class="mb-20">Terms Of Services</h3>
+					<div style="text-align:justify;font-size:15px">
+					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+					</div>
+				</div>
+				<div class="modal-footer justify-content-center">
+					<a href="" class="btn btn-primary">I agree</a>
+					<a href="" class="btn btn-primary">I disagree</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered max-width-400" role="document">
+			<div class="modal-content">
+				<div class="modal-body text-center font-18">
+					<h3 class="mb-20">Privacy Policy</h3>
+					<div style="text-align:justify;font-size:15px">
+					Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+					</div>
+				</div>
+				<div class="modal-footer justify-content-center">
+					<a href="" class="btn btn-primary">I agree</a>
+					<a href="" class="btn btn-primary">I disagree</a>
+				</div>
+			</div>
+		</div>
+	</div>
+										</div>
+									</div>
+								</section>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- success Popup html Start -->
+	<button type="button" id="success-modal-btn" hidden data-toggle="modal" data-target="#success-modal" data-backdrop="static">Launch modal</button>
+	<div class="modal fade" id="success-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered max-width-400" role="document">
+			<div class="modal-content">
+				<div class="modal-body text-center font-18">
+					<h3 class="mb-20">Form Submitted!</h3>
+					<div class="mb-30 text-center"><img src="{% static 'vendors/images/success.png' %}"></div>
+					Thanks for registering with Xperthaler.
+				</div>
+				<div class="modal-footer justify-content-center">
+					<a href="{% url 'user:login'%}" class="btn btn-primary">Done</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- success Popup html End -->
+	<!-- js -->
+	<script src="{% static 'vendors/scripts/core.js' %}"></script>
+	<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
+	<script src="{% static 'vendors/scripts/process.js' %}"></script>
+	<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+	<script src="{% static 'src/plugins/jquery-steps/jquery.steps.js' %}"></script>
+	<script src="{% static 'vendors/scripts/steps-setting.js' %}"></script>
+	<script src="{% static 'src/scripts/custom.js' %}"></script>
+	<script src="{% static 'src/scripts/country.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-analytics.js"></script>
+    <script defer src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+	<script>
+		$("#id_vat_status").bind('click', function () {
+			if ($('#id_vat_status').checked) {
+				// $('#save_btn').prop( "disabled", false );
+				document.getElementById("error_message").innerHTML = ('')
+			}
+    	});
+		$("#email").bind('change', function () {
+			$("#email_confirm").text($("#email").val())
+    	});
+		$("#full_name").bind('change', function () {
+			$("#full_name_confirm").text($("#full_name").val())
+    	});
+		$(".location").bind('change', function () {
+			var location = ''
+			var comma = ''
+			if ($("#city").val() != '') {
+				location = location + comma + $("#city").val()
+				comma = ', '
+			}
+			if ($("#state").val() != '') {
+				location = location + comma + $("#state").val()
+				comma = ', '
+			}
+			if ($("#country").val() != '') {
+				location = location + comma + $("#country").val()
+				comma = ', '
+			}
+			$("#location_confirm").text(location)
+    	});
+	</script>
+</body>
+
+</html>

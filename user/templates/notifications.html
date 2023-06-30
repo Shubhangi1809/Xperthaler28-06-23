@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load user_tags %}
+{% block content %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box pd-30 height-100-p">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="">
+                        <thead>
+                            <tr>
+                                <th scope="col">Notification</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if object_list %}
+                                {% for  i in object_list %}
+                                    <tr>
+                                        <th scope="col">{{ i|get_notification_body }}</th>
+                                        <th scope="col">
+                                            <a href="{% url 'user:view-notification' pk=i.id %}" class="action-icon"><i class="fa fa-eye"></i></a>
+                                            <a href="{% url 'user:approve-notification' pk=i.id %}" class="action-icon"><i class="fa fa-check"></i></a>
+                                            <a href="{% url 'user:reject-notification' pk=i.id %}" class="actiasdon-icon"><i class="fa fa-remove"></i></i></a>
+                                        </th>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No notification.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .icon {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        text-align: center;
+        -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        background-color:white;
+    }
+    .action-icon {
+        margin: 5px;
+    }
+</style>
+{% endblock%}
+{% block footer_javascript %}
+{% endblock %}

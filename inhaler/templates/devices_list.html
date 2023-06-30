@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+{% load user_tags %}
+{% block content %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="card-box pd-30 height-100-p pd-20 mb-30">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">BLE Name</th>
+                                <th scope="col">Company name</th>
+                                <th scope="col">Medicine name</th>
+                                <th scope="col">Medicine type</th>
+                                <th scope="col">Max count</th>
+                                <th scope="col">Remaining count</th>
+                                <th scope="col">Expiry date</th>
+                                <th scope="col">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if object_list %}
+                                {% for  i in object_list %}
+                                    <tr>
+                                        <td>{{ i.ble_name }}</td>
+                                        <td>{{ i.company_name }}</td>
+                                        <td>{{ i.medicine_name }}</td>
+                                        {% if i.medicine_type %}
+                                            <td>Rescue dose</td>
+                                        {% else %}
+                                            <td>Maintenance dose</td>
+                                        {% endif %}
+                                        <td>{{ i.max_count }}</td>
+                                        <td>Maintenance dose</td>
+                                        <td>{{ i.expiry_date|date:"d-m-Y" }}</td>
+                                        <td>
+                                            <a href="{% url 'inhaler:device-alarms' pk=i.id %}" class="action-icon"><i class="fa fa-bell"></i></a>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            {% else %}
+                                <tr>
+                                    <td colspan="5" class="text-center">No devices.</td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
+                {% include 'pagination.html' %}
+            </div>
+            <div class="form-group mb-0">
+                <a href="{% url 'user:dashboard' %}" class="btn btn-primary">Back</a>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .icon {
+        width: 30px;
+        height: 30px;
+        line-height: 30px;
+        font-size: 14px;
+        text-align: center;
+        -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -moz-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.4);
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        border-radius: 100%;
+        background-color:white;
+    }
+    .action-icon {
+        margin: 5px;
+    }
+</style>
+{% endblock%}
+{% block footer_javascript %}
+{% endblock %}

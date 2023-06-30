@@ -1,0 +1,101 @@
+{% load static %}
+{% load user_tags %}
+<div class="row clearfix">
+    <div class="col-sm-12 col-md-4 mb-30">
+        <div class="card card-box bg-info text-white">
+            <div class="row">
+                <div class="">
+                    <i class="icon-copy fa dw dw-calendar-5 hand" aria-hidden="true"></i>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-white">Today's Appointment</h5>
+                    <p class="card-text">{{ day_appointment_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-30">
+        <div class="card card-box" style="background-color: #D97D54;">
+            <div class="row">
+                <div class="">
+                    <i class="icon-copy fa dw dw-calendar-4 hand" aria-hidden="true"></i>
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title text-white">Total Appointment This Week</h5>
+                    <p class="card-text text-white">{{ week_appointment_count }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 mb-30">
+        <div class="card card-box bg-info text-white" >
+            <div class="row">
+                <div class="">
+                    <i class="icon-copy fa dw dw-group hand" aria-hidden="true"></i>
+                </div>
+            <div class="card-body">
+                <h5 class="card-title text-white">Total Registered Patients</h5>
+                <p class="card-text text-white">{{ patient_count }}</p>
+                </div>	
+            </div>
+        </div>
+    </div>
+</div>
+<div class="pd-20 card-box mb-30">
+    <div class="calendar-wrap">
+        <h4>Today's Appointments/Schedule</h4>
+            <table class="table" style="margin-top: 25px;">
+            <thead style="background-color: #009cdc;color: #fff;">
+                <tr>
+                    <th scope="col">Time</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Symptoms</th>
+                    <th scope="col">Last Prescribed</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in appointments %}
+                    <tr>
+                        <td>{{ i.time|get_user_time_format:user }}</td>
+                        <td>{{ i.patient.first_name }}&nbsp{{ i.patient.last_name }}</td>
+                        <td>{{ i.symptoms }}</td>
+                        <td>{{ i.patient|get_last_prescription:user }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="card-box mb-30">
+    <div class="pd-20">
+        <h4>Patients List</h4>
+    </div>
+    <div class="pb-20">
+        <table class="table hover multiple-select-row data-table-export nowrap">
+            <thead>
+                <tr>
+                    <th>Smiley</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Blood Group</th>
+                    <th>Allergies</th>
+                    <th>Mobile Number</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in patients %}
+                    <tr>
+                        <td>&#128512</td>
+                        <td>{{ i.user.first_name }} {{ i.user.last_name }}</td>
+                        <td>{{ i.user|get_user_gender }}</td>
+                        <td>{{ i.user|get_user_blood_group }}</td>
+                        <td>{{ i.user|get_user_allergy_list }}</td>
+                        <td>{{ i.user|get_user_phone_number }}</td>
+                        <td>{{ i.user.email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

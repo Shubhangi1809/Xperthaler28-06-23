@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+{% load user_tags %}
+<div class="main-container">
+    <div class="pd-ltr-20 xs-pd-20-10">
+        <div class="min-height-200px">
+            {% include "page_title.html" %}
+            {% include 'message.html' %}
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
+                    <div class="card-box pd-30 height-100-p">
+                        <div class="chat-profile-header clearfix">
+                            <div class="left">
+                                <div class="clearfix">
+                                    <div class="chat-profile-name">
+                                        <h4 class="">Overall Report</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="right text-right">
+                                <div class="dropdown">
+                                    <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        Export
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" href="#">CSV</a>
+                                        <a class="dropdown-item" href="#">PDF</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="table-responsive">
+                        <table class="table table-striped">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Type Of Medication</th>
+                                    <th scope="col">Inhalation Time & Date</th>
+                                    <th scope="col">Recommended Time and Date</th>
+                                    <th scope="col">Deviation Time</th>
+                                    <th scope="col">Shaken</th>
+                                    <th scope="col">Angle</th>
+                                    <th scope="col">Location</th>
+                                    <th scope="col">Survey Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for data in object_list %}
+                                    <tr>
+                                        <td>{{ data.device.medicine_type|get_type_of_medication }}</th>
+                                        <td>{{ data.inhalation_time|get_user_datetime_format:user }}</td>
+                                        <td>{{ data.recommended_time|get_user_datetime_format:user }}</td>
+                                        <td>{{ data.recommended_time|get_deviation_time:data.inhalation_time }}</td>
+                                        {% if data.shaken %}
+                                        <td>Yes</td>
+                                        {% else %}
+                                        <td>No</td>
+                                        {% endif %}
+                                        <td>
+                                            <ul>
+                                                <li>X:{{ data.x_angle }}</li>
+                                                <li>Y:{{ data.y_angle }}</li>
+                                            </ul>
+                                        <td>{{ data.location }}</td>
+                                        <td>{{ data.device.user|get_survey_rating:data.inhalation_time }}</td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% include 'pagination.html' %}
+                    </div>
+                </div>
+                <div class="col-lg-12 col-md-12 col-sm-12 mb-30">
+                    <div class="card-box pd-30 height-100-p">
+                        <h4>Chart</h4>
+                        <div id="chartdiv" style="width: 100%; height: 355px; margin-top: 25px;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.2.1/js/bootstrap.min.js"></script>
+<script src="http://www.amcharts.com/lib/3/amcharts.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/serial.js" type="text/javascript"></script>
+<script src="http://www.amcharts.com/lib/3/amstock.js" type="text/javascript"></script>
+
+<script src="{% static 'vendors/scripts/core.js' %}"></script>
+<script src="{% static 'vendors/scripts/script.min.js' %}"></script>
+<script src="{% static 'vendors/scripts/process.js' %}"></script>
+<script src="{% static 'vendors/scripts/layout-settings.js' %}"></script>
+<script src="{% static 'src/plugins/cropperjs/dist/cropper.js' %}"></script>
+
+<!-- bootstrap-tagsinput js -->
+<script src="{% static 'src/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js' %}"></script>
+<style>
+    #city {
+        margin-left: 0px;
+    }
+    #imageLoader {
+        display: None;
+    }
+</style>
+<script>
+    var chartData = [];
+
+    function generateChartData() {
+        console.log({{report_data|safe}})
+        {% for i in report_data %}
+            var data = {{i|safe}}
+            chartData.push({
+                date: new Date(data['date']),
+                inhalations: data['count'],
+                rating: data['rating'],
+            });
+        {% endfor %}
+    }
+
+    AmCharts.ready(function() {
+        generateChartData();
+        createStockChart();
+    });
+
+    function createStockChart() {
+        var chart = new AmCharts.AmStockChart();
+        chart.pathToImages = "http://www.amcharts.com/lib/images/";
+
+        // create data sets first
+        var dataSet1 = new AmCharts.DataSet();
+        dataSet1.title = "first data set";
+        dataSet1.fieldMappings = [
+        {
+            fromField: "rating",
+            toField: "value"
+        },
+        {
+            fromField: "inhalations",
+            toField: "volume"
+        }];
+        dataSet1.dataProvider = chartData;
+        dataSet1.categoryField = "date";
+
+    
+        // set data sets to the chart
+        chart.dataSets = [dataSet1];
+                                            
+        // first stock panel
+        var stockPanel1 = new AmCharts.StockPanel();
+        stockPanel1.showCategoryAxis = false;
+        stockPanel1.title = "Value";
+        stockPanel1.percentHeight = 60;
+        
+        // add value axes
+        var valueAxis1 = new AmCharts.ValueAxis();
+        stockPanel1.addValueAxis(valueAxis1);
+
+        // graph of first stock panel
+        var graph2 = new AmCharts.StockGraph();
+        graph2.title = "Rating";
+        graph2.valueField = "value";
+        graph2.lineThickness = 3;
+        graph2.lineColor = "#00cc00";
+        graph2.useDataSetColors = false;
+        stockPanel1.addStockGraph(graph2);
+
+        // create stock legend                
+        stockPanel1.stockLegend = new AmCharts.StockLegend();
+
+        var graph1 = new AmCharts.StockGraph();
+        graph1.title = "Total inhalations";
+        graph1.valueField = "volume";
+        graph1.type = "column";
+        graph1.showBalloon = false;
+        graph1.fillAlphas = 0.5;
+        graph1.valueAxis = valueAxis1;
+        stockPanel1.addStockGraph(graph1);
+
+        // set panels to the chart
+        chart.panels = [stockPanel1];
+
+
+        // OTHER SETTINGS ////////////////////////////////////
+        var sbsettings = new AmCharts.ChartScrollbarSettings();
+        sbsettings.graph = graph1;
+        sbsettings.usePeriod = "WW";
+        chart.chartScrollbarSettings = sbsettings;
+
+
+        // PERIOD SELECTOR ///////////////////////////////////
+        var periodSelector = new AmCharts.PeriodSelector();
+        periodSelector.position = "bottom";
+        periodSelector.periods = [
+        {
+            period: "DD",
+            count: 1,
+            label: "1 day"
+        },
+        {
+            period: "DD",
+            count: 7,
+            label: "1 week"
+        },
+        {
+            period: "MM",
+            selected: true,
+            count: 1,
+            label: "1 month"
+        },
+        {
+            period: "YYYY",
+            count: 1,
+            label: "1 year"
+        },
+        {
+            period: "MAX",
+            label: "MAX"
+        }];
+        chart.periodSelector = periodSelector;
+        chart.write('chartdiv');
+    }
+</script>
+{% endblock %}
